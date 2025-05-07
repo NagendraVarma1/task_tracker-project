@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Tracker</title>
+  </head>
+  <body>
+    <form onsubmit="addNewTask(event)">
+      <label for="addTask">Add Task</label>
+      <input id="addTask" type="text" placeholder="Add Task" required />
+      <select id="status">
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+    <ul id="pendingTaskList">
+      <h2>Pending Tasks</h2>
+    </ul>
+    <ul id="completedTaskList">
+      <h2>Completed Tasks</h2>
+    </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
