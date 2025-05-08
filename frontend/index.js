@@ -9,13 +9,10 @@ function addNewTask(event) {
     status,
   };
   axios
-    .post(
-      "https://crudcrud.com/api/5eb2f1f38a654fe098efb0cee9365232/tasks",
-      taskDetails
-    )
+    .post("http://localhost:3000/add-task", taskDetails)
     .then((res) => {
-      show(res.data);
-      document.getElementById("addTask").value = ''
+      show(res.data.newTask);
+      document.getElementById("addTask").value = "";
     })
     .catch((err) => {
       console.log(err);
@@ -30,21 +27,12 @@ function show(data) {
   dltBtn.textContent = "Delete";
 
   dltBtn.onclick = () => {
-    axios
-      .delete(
-        `https://crudcrud.com/api/5eb2f1f38a654fe098efb0cee9365232/tasks/${data._id}`
-      )
-      .then((res) => {
-        if(data.status === 'pending'){
-          ulPending.removeChild(li);
-        }
-        else{
-          ulCompleted.removeChild(li)
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    taskDeleteHandler(data);
+    if (data.status === "pending") {
+      ulPending.removeChild(li);
+    } else {
+      ulCompleted.removeChild(li);
+    }
   };
 
   let completeBtn = document.createElement("button");
@@ -56,35 +44,47 @@ function show(data) {
       task: data.task,
       status: "completed",
     };
-    axios
-      .put(
-        `https://crudcrud.com/api/5eb2f1f38a654fe098efb0cee9365232/tasks/${data._id}`,
-        updatedTask
-      )
-      .then((res) => {
-        location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    taskEditHandler(updatedTask);
+    location.reload();
   };
   li.textContent = `Task: ${data.task}, Status: ${data.status}`;
   li.append(completeBtn);
   li.append(dltBtn);
-  if(data.status === 'pending'){
+  if (data.status === "pending") {
     ulPending.appendChild(li);
+  } else {
+    ulCompleted.appendChild(li);
   }
-  else{
-    ulCompleted.appendChild(li)
-  }
-  
+}
+
+function taskDeleteHandler(task) {
+  axios
+    .delete(`http://localhost:3000/delete-task/${task._id}`) //this is not working should look into it
+    .then(() => {
+      console.log("Task Deleted");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function taskEditHandler(task) {
+  console.log(task)
+  axios
+    .put(`http://localhost:3000/update-task/${task._id}`) //this is not working should look into it
+    .then(() => {
+      console.log("Task updated");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 window.addEventListener("load", () => {
   axios
-    .get("https://crudcrud.com/api/5eb2f1f38a654fe098efb0cee9365232/tasks")
+    .get("http://localhost:3000/get-all-tasks")
     .then((res) => {
-      let allData = res.data;
+      let allData = res.data.allTasks;
       console.log(allData);
       for (let i = 0; i < allData.length; i++) {
         show(allData[i]);
