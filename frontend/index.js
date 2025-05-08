@@ -39,16 +39,12 @@ function show(data) {
   completeBtn.textContent = "Completed";
 
   completeBtn.onclick = () => {
-    let updatedTask = {
-      id: data._id,
-      task: data.task,
-      status: "completed",
-    };
-    taskEditHandler(updatedTask);
-    location.reload();
+    taskEditHandler(data);
   };
   li.textContent = `Task: ${data.task}, Status: ${data.status}`;
-  li.append(completeBtn);
+  if (data.status === "pending") {
+    li.append(completeBtn);
+  }
   li.append(dltBtn);
   if (data.status === "pending") {
     ulPending.appendChild(li);
@@ -59,7 +55,7 @@ function show(data) {
 
 function taskDeleteHandler(task) {
   axios
-    .delete(`http://localhost:3000/delete-task/${task._id}`) //this is not working should look into it
+    .delete(`http://localhost:3000/delete-task/${task.id}`)
     .then(() => {
       console.log("Task Deleted");
     })
@@ -69,11 +65,12 @@ function taskDeleteHandler(task) {
 }
 
 function taskEditHandler(task) {
-  console.log(task)
+  console.log(task);
   axios
-    .put(`http://localhost:3000/update-task/${task._id}`) //this is not working should look into it
+    .put(`http://localhost:3000/update-task/${task.id}`, task) 
     .then(() => {
       console.log("Task updated");
+      location.reload();
     })
     .catch((err) => {
       console.log(err);
@@ -85,7 +82,6 @@ window.addEventListener("load", () => {
     .get("http://localhost:3000/get-all-tasks")
     .then((res) => {
       let allData = res.data.allTasks;
-      console.log(allData);
       for (let i = 0; i < allData.length; i++) {
         show(allData[i]);
       }
