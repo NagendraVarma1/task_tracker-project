@@ -20,36 +20,45 @@ function addNewTask(event) {
 }
 
 function show(data) {
-  let ulPending = document.getElementById("pendingTaskList");
-  let ulCompleted = document.getElementById("completedTaskList");
-  let li = document.createElement("li");
+  let divPending = document.getElementById("pendingTaskList");
+  let divCompleted = document.getElementById("completedTaskList");
+
+  let card = document.createElement('div');
+  card.className = 'card'
+
+  let task = document.createElement('h3')
+  task.className = 'task'
+
   let dltBtn = document.createElement("button");
   dltBtn.textContent = "Delete";
+  dltBtn.className = 'dltBtn'
 
   dltBtn.onclick = () => {
     taskDeleteHandler(data);
     if (data.status === "pending") {
-      ulPending.removeChild(li);
+      divPending.removeChild(card);
     } else {
-      ulCompleted.removeChild(li);
+      divCompleted.removeChild(card);
     }
   };
 
   let completeBtn = document.createElement("button");
-  completeBtn.textContent = "Completed";
+  completeBtn.textContent = "Mark as Complete";
+  completeBtn.className = 'completeBtn'
 
   completeBtn.onclick = () => {
     taskEditHandler(data);
   };
-  li.textContent = `Task: ${data.task}, Status: ${data.status}`;
+  task.textContent = `Task: ${data.task}, Status: ${data.status}`;
+  card.append(task)
   if (data.status === "pending") {
-    li.append(completeBtn);
+    card.append(completeBtn);
   }
-  li.append(dltBtn);
+  card.append(dltBtn);
   if (data.status === "pending") {
-    ulPending.appendChild(li);
+    divPending.appendChild(card);
   } else {
-    ulCompleted.appendChild(li);
+    divCompleted.appendChild(card);
   }
 }
 

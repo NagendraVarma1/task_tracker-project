@@ -4,24 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Tracker</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1>TASK TRACKER</h1>
+    <h1 id="heading">TASK TRACKER</h1>
     <form onsubmit="addNewTask(event)">
-      <label for="addTask">Add Task</label>
-      <input id="addTask" type="text" placeholder="Add Task" required />
-      <select id="status">
-        <option value="pending">Pending</option>
-        <option value="completed">Completed</option>
-      </select>
-      <button type="submit">Add Task</button>
+      <div class="form-div">
+        <div>
+          <label for="addTask">Add Task: </label>
+          <input id="addTask" class="addTask" type="text" placeholder="Add Task" required />
+        </div>
+        <select class="status" id="status">
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+        <button class="btn" type="submit">Add Task</button>
+      </div>
     </form>
-    <ul id="pendingTaskList">
+    <div id="pendingTaskList">
       <h2>Pending Tasks</h2>
-    </ul>
-    <ul id="completedTaskList">
+    </div>
+    <div id="completedTaskList">
       <h2>Completed Tasks</h2>
-    </ul>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
     <script src="index.js"></script>
   </body>

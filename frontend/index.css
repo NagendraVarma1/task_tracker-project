@@ -1,0 +1,71 @@
+#heading{
+   text-align: center;
+}
+
+.form-div{
+    width: 50%;
+    margin-left: 25%;
+    height: 50px;
+    border: 1px solid black;
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 5px
+}
+
+.addTask{
+    height: 30px;
+    width: 300px;
+}
+
+.status{
+    height: 30px;
+}
+
+.btn{
+    background-color: rgb(246, 204, 127);
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+#pendingTaskList, #completedTaskList{
+    width: 60%;
+    margin: 30px 20%;
+    border: 1px solid black;
+}
+
+h2{
+    margin-left: 5%;
+}
+
+.card{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    height: 40px;
+    padding: 10px;
+    margin: 10px
+}
+
+.task{
+    display: inline;
+    padding: 50px;
+}
+
+.completeBtn, .dltBtn{
+    margin-right: 20px;
+    padding: 10px;
+    border-radius: 3px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.completeBtn{
+    background-color: rgb(127, 255, 127);
+}
+
+.dltBtn{
+    background-color: rgb(250, 91, 91);
+}
